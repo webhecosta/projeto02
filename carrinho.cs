@@ -40,8 +40,7 @@ class Carrinho {
     opcao = 1,
     formPag,
     manterCompra = 0;
-    string codPro,
-    quantPro,
+    string codPro, quantPro,
     ResultCPF;
     double totalCompra = 0; //SOMAR PRODUTOS DA COMPRA
 
@@ -103,9 +102,11 @@ class Carrinho {
 
       //EXIBIR A LISTA DE PRODUTOS DENTRO DA LISTA
       Console.WriteLine("############# LISTA DE COMPRAS #####################");
+			int u = 0; //CONTADOR PARA PERCORRER A LISTA DE PRODUTOS QUE FORAM ADICIONADOS NO CARRINHO
       foreach(Carrinho c in listaCarrinhoCodigo) {
-        Console.WriteLine(c.cod_produto + " " + c.nomeProduto + " " + c.Quantidade + " " + c.valorProduto);
-      }
+        Console.WriteLine("COD.PRODUTO: {0} - NOME PRODUTO {1} - QTDE DESEJADA {2} - VALOR UN {3} - VALOR TOTAL {4}",c.cod_produto,c.nomeProduto,listaParametro[u].Quantidade,c.valorProduto,int.Parse(listaParametro[u].Quantidade)*double.Parse(c.valorProduto));
+				u += 1;
+			}
 
       Console.WriteLine("\n############# TOTAL VALOR #####################");
       Console.WriteLine("TOTAL : R$ {0}", totalCompra);
@@ -119,13 +120,9 @@ class Carrinho {
       bool cpfCompra = valCpf.IsCpf(ResultCPF); //RECEBER UM VALOR BOLEANO, TRUE - EXISTE O CPF, FALSE - NÃO EXISTE
 
       if (cpfCompra == true) {
-
-        Console.WriteLine("CPF VÁLIDO!");
-
-        //cadCliente.verificaCadastros();
-
-        //bool existeCliente = cadCliente.verificaCadastros(ResultCPF);	
-        bool existeCliente = Menu.cliente.verificaCadastros(ResultCPF);
+     
+      
+        bool existeCliente = Menu.cliente.verificaCadastros(ResultCPF); //VERIFICA SE O CLIENTE EXISTE
 
         if (existeCliente == true) {
 
