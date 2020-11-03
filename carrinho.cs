@@ -142,7 +142,7 @@ class Carrinho {
               Console.WriteLine("Pagamento efetuado com sucesso!\n");
 							Console.WriteLine("#########################CUPOM FISCAL#########################\n");
 							cadCliente = Menu.cliente.retornoDadosCliente(ResultCPF); //VERIFICA SE O CLIENTE EXISTE
-								Console.WriteLine("CLIENTE : {0}\n CPF : {1}",cadCliente[0],cadCliente[1]);	
+								Console.WriteLine("CLIENTE : {0}\nCPF : {1}",cadCliente[0],cadCliente[1]);	
 							//EXIBIR A LISTA DE PRODUTOS DENTRO DA LISTA
 							Console.WriteLine("##############################################################\n");
 							int h = 0; //CONTADOR PARA PERCORRER A LISTA DE PRODUTOS QUE FORAM ADICIONADOS NO CARRINHO
@@ -177,7 +177,7 @@ class Carrinho {
               Console.WriteLine("Pagamento efetuado com sucesso!\n");
 							Console.WriteLine("#########################CUPOM FISCAL#########################\n");
 							cadCliente = Menu.cliente.retornoDadosCliente(ResultCPF); //VERIFICA SE O CLIENTE EXISTE
-							Console.WriteLine("CLIENTE : {0}\n CPF : {1}",cadCliente[0],cadCliente[1]);	
+							Console.WriteLine("CLIENTE : {0}\nCPF : {1}",cadCliente[0],cadCliente[1]);	
 							//EXIBIR A LISTA DE PRODUTOS DENTRO DA LISTA
 							Console.WriteLine("##############################################################\n");
 
