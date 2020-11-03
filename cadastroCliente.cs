@@ -126,7 +126,7 @@ class CadastroCliente {
 
       if (listCliente[i].cpf == cpf) {
 
-        Console.WriteLine("CLIENTE:{0}\n CPF: {1}", listCliente[i].nome, listCliente[i].cpf);
+        Console.WriteLine("\nCLIENTE:{0}\nCPF: {1}", listCliente[i].nome, listCliente[i].cpf);
 				 Console.WriteLine("\n");
         return true;
       }
