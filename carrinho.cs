@@ -249,10 +249,12 @@ class Carrinho {
         int qtdeCancelProd = int.Parse(Console.ReadLine());
 
         for (int n = 0; n < qtdeCancelProd; n++) {
+					 Console.WriteLine("CONT FOR : {0}\n",n);
+
+					 Console.WriteLine("DIGITE O CÓDIGO DO PRODUTO QUE DESEJA CANCELAR/EDITAR");
+          string codCancProd = Console.ReadLine();
          
-          for (int i = 0; i < listaCarrinhoCodigo.Count; i++) {
-            Console.WriteLine("DIGITE O CÓDIGO DO PRODUTO QUE DESEJA CANCELAR/EDITAR");
-            string codCancProd = Console.ReadLine();
+          for (int i = 0; i < listaCarrinhoCodigo.Count; i++) {            
 
             if (listaCarrinhoCodigo[i].cod_produto == codCancProd) {
 
@@ -273,7 +275,6 @@ class Carrinho {
                   }
 
                 }
-
 								
 
               } else if (EditOpt == 1) {
