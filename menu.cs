@@ -23,9 +23,7 @@ class Menu {
 
       // INSTANCIAR CLASSE CARRINHO
       Carrinho carr = new Carrinho();
-
-      cliente.cadastro(); // ENTRAR EM CADASTRO DE CLIENTE      	
-
+      cliente.cadastro(); // ENTRAR EM CADASTRO DE CLIENTE     
       carr.compras(); // ENTRAR EM COMPRAS
 
     }

@@ -12,8 +12,8 @@ class CadastroCliente {
 
     listCliente = new List < Cliente > (); //INSTANCIAR LISTA VAZIA
 
-    Cliente webhe = new Cliente("WEBHE", "AV. COPA", "12560800713", "04/01/1990"); //PASSANDO OS ATRIBUTOS PARA O TIPO CLIENTE 
-    listCliente.Add(webhe);
+    //Cliente webhe = new Cliente("WEBHE", "AV. COPA", "12560800713", "04/01/1990"); //PASSANDO OS ATRIBUTOS PARA O TIPO CLIENTE 
+    //listCliente.Add(webhe);
 
     // INSTANCIAR CLASSE
     ValidaCPF valida = new ValidaCPF();
@@ -23,7 +23,7 @@ class CadastroCliente {
 
     int sair = 0; //VARIÁVEL PARA CONTROLAR A EXECUÇÃO DO WHILE
 		int px=Console.CursorLeft; //PEGAR POSIÇÃO ATUAL DE X
-		int py= Console.CursorTop; //PEGAR POSIÇÃO ATUAL DE Y
+		int py=Console.CursorTop; //PEGAR POSIÇÃO ATUAL DE Y
     int pyEdtNome=0;
     int pyEdtCpf=0;
 		int pyEdtEndereco=0;
@@ -95,12 +95,11 @@ class CadastroCliente {
 			
 			Console.SetCursorPosition(0,pyEdtDtNascimento);
      // Console.WriteLine("DATA DE NASCIMENTO DO CLIENTE EX. XX/XX/XXXX");
-      string dataNascimento = (Console.ReadLine());
-
-      Cliente client = new Cliente(nome, endereco, cpf, dataNascimento); //PASSANDO OS ATRIBUTOS PARA O TIPO CLIENTE 
-
+      string dataNascimento = (Console.ReadLine());			
+      Cliente client = new Cliente(nome, endereco, cpf, dataNascimento); //PASSANDO OS ATRIBUTOS PARA O TIPO CLIENTE 			
       listCliente.Add(client); //CADASTRAR O CLIENTE NA LISTA
-      Console.SetCursorPosition(0,Console.CursorTop+3);
+		
+     // Console.SetCursorPosition(0,Console.CursorTop+3);
       //VERIFICANDO COM O USUÁRIO SE ELE DESEJA CONTINUAR OU SAIR
       Console.WriteLine("1 - PARA SAIR \n 0 - CADASTRAR NOVO CLIENTE \n");
       sair = int.Parse(Console.ReadLine());
@@ -149,7 +148,7 @@ class CadastroCliente {
         cpfMsg[0] = listCliente[i].nome;
         cpfMsg[1] = listCliente[i].cpf;
         return cpfMsg;
-        break;
+        
       }
 
     }

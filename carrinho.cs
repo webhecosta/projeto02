@@ -5,16 +5,12 @@ class Carrinho {
 
   //VARIAVEIS
 
-  public string nomeProduto,
-  cod_produto,
-  valorProduto,
-  Quantidade;
-  bool saldoContaBanco;
+  public string nomeProduto, cod_produto, valorProduto, Quantidade;
 
   //Construtor vazio
   public Carrinho() {
 
-}
+	}
   //Construtor completo
   public Carrinho(string nomePr, string cod_pr, string Quant, string vl) {
 
@@ -36,24 +32,17 @@ class Carrinho {
   //NESTA FUNÇÃO O USUÁRIO SABERÁ QUAIS PRODUTOS PODERÃO SER ADICIONADOS NO CARRINHO
   public void compras() {
 
-    int result,
-    opcao = 1,
-    formPag,
-    manterCompra = 0,
-    opcaoSeguirCom;
-    string codPro,
-    quantPro,
-    ResultCPF;
-    double totalCompra = 0,
-    totalCompras = 0; //SOMAR PRODUTOS DA COMPRA
+    int result,opcao = 1,manterCompra = 0, opcaoSeguirCom;
+    string codPro,quantPro;
+    double totalCompra = 0;
     int qtdItem = 0;
-    int pyCarrinho = 0;
+ 
     //VARIÁVEL DO TIPO VETOR
     string[] vetor;
-    string[] cadCliente; //RETORNAR OS NOME E CPF DO CLIENTE QUE EFETUAOU A COMPRA
+ 
+   	Loja loj = new Loja();
 
-    //INSTANCIAR CLASSES
-    Loja loj = new Loja();
+		  Funcompras funcaoCompra = new Funcompras(); //INSTANCIAR FUNÇÃO PARA 
 
     //CRIANDO LISTA
     List < Carrinho > listaCarrinhoCodigo; //PROPRIEDADE
@@ -64,14 +53,11 @@ class Carrinho {
       opcao = 1; // ESTA OPÇÃO SERÁ NECESSÁRIA ENQUANTO O USUÁRIO QUISER FAZER UMA NOVA COMPRA
       totalCompra = 0; //ZERA COMPRA ANTERIOR
       qtdItem = 0; //ZERA CARRINHO ANTERIOR
-      listaCarrinhoCodigo = new List < Carrinho > (); //INSTANCIAR LISTA VAZIA  
-      listaParametro = new List < Carrinho > (); //INSTANCIAR LISTA VAZIA
+      listaCarrinhoCodigo = new List <Carrinho> (); //INSTANCIAR LISTA VAZIA  
+      listaParametro = new List <Carrinho> (); //INSTANCIAR LISTA VAZIA
 
       while (opcao != 0) {
-        loj.descricao(); // EXIBIR LISTA DE PRODUTOS A CADA COMPRA
-        Console.WriteLine(" ____o");
-        Console.WriteLine("(_{0}_/", qtdItem);
-        Console.WriteLine(" ° °");
+        loj.descricao(); // EXIBIR LISTA DE PRODUTOS A CADA COMPRA       
         //  pyCarrinho=Console.CursorTop-2;	// IR PARA A POSIÇÃO DENTRO DA CAIXA NOME
         Console.WriteLine("Digite o código do produto para adicionar no carrinho");
         codPro = (Console.ReadLine()); //Ler produto desejado
@@ -83,7 +69,7 @@ class Carrinho {
 
         if (result == 1) {
 
-          Console.WriteLine("Existe o produto e Quantidade");
+         // Console.WriteLine("Existe o produto e Quantidade");
 
           Carrinho listReturn = new Carrinho(codPro, quantPro); // ADICIONANDO OS VALORES DENTRO DA LISTA
           listaParametro.Add(listReturn); // ADICIONAR OS PRODUTOS DO CARRINHO EM UMA LISTA ONDE SERÁ ENVIADA COMO PARÂMETRO PARA CASO OCORRA ESTORNO DE PRODUTOS
@@ -96,6 +82,10 @@ class Carrinho {
           //PASSANDO OS ATRIBUTOS PARA O TIPO CLIENTE 
           listaCarrinhoCodigo.Add(carrinho); // Adicionar o produto na lista de carrinhos
           qtdItem++;
+					Console.WriteLine(" ____o");
+        	Console.WriteLine("(_{0}_/", qtdItem);
+        	Console.WriteLine(" ° °");
+
         } else if (result == 2) {
 
           Console.WriteLine("Existe o produto mas não tem Quantidade disponível");
@@ -108,7 +98,8 @@ class Carrinho {
 
         Console.WriteLine("Adicionar mais produtos no carrinho ?\n 0 - NÃO\n 1 - SIM ");
         opcao = int.Parse(Console.ReadLine());
-      }
+
+      } //WHILE OPÇÃO ADICIONAR MAIS PRODUTOS
 
       //EXIBIR A LISTA DE PRODUTOS DENTRO DA LISTA
       Console.WriteLine("############# LISTA DE COMPRAS #####################\n");
@@ -131,304 +122,14 @@ class Carrinho {
       //PROSSEGUIR COM A COMPRA
       if (opcaoSeguirCom == 0) {
 
-        SaldoConta saldoC = new SaldoConta(); //INSTANCIAR CLASSE
-
-        //############ TRATAMENTO DE CADASTRO DE CLIENTE COM VALIDADAÇÃO DE CPF ####################
-        Console.WriteLine("DIGITE O CPF PARA CONTINUAR COM A COMPRA\n");
-        ValidaCPF valCpf = new ValidaCPF(); //INSTANCIAR VALIDA CPF
-        ResultCPF = Console.ReadLine(); // VARIAVEL QUE VAI RECEBER O CPF DIGITADO PELO USUARIO
-        bool cpfCompra = valCpf.IsCpf(ResultCPF); //RECEBER UM VALOR BOLEANO, TRUE - EXISTE O CPF, FALSE - NÃO EXISTE
-
-        if (cpfCompra == true) {
-
-          bool existeCliente = Menu.cliente.verificaCadastros(ResultCPF); //VERIFICA SE O CLIENTE EXISTE
-
-          if (existeCliente == true) {
-
-            Console.WriteLine("QUAL MÉTODO DE PAGAMENTO ?\n 1 - DINHEIRO \n 2 - CARTÃO DE CRÉDITO");
-            formPag = int.Parse(Console.ReadLine());
-            //PAGAMENTO EM DINHEIRO
-
-            if (formPag == 1) {
-
-              saldoContaBanco = saldoC.Sacar(totalCompra); //RETORNO BOLEANO
-
-              if (saldoContaBanco == true) {
-
-                Console.WriteLine("Pagamento efetuado com sucesso!\n");
-                Console.WriteLine("#########################CUPOM FISCAL#########################\n");
-                cadCliente = Menu.cliente.retornoDadosCliente(ResultCPF); //VERIFICA SE O CLIENTE EXISTE
-                Console.WriteLine("CLIENTE : {0}\nCPF : {1}", cadCliente[0], cadCliente[1]);
-                //EXIBIR A LISTA DE PRODUTOS DENTRO DA LISTA
-
-                int h = 0; //CONTADOR PARA PERCORRER A LISTA DE PRODUTOS QUE FORAM ADICIONADOS NO CARRINHO
-                foreach(Carrinho c in listaCarrinhoCodigo) {
-
-                  Console.WriteLine("----------------------------------------------------------------|");
-                  Console.WriteLine("COD.PRODUTO: {0} - NOME PRODUTO {1} ", c.cod_produto, c.nomeProduto);
-                  Console.WriteLine("QTDE SOL. {0} - VL UN R$ {1} - VL TOTAL R$ {2}", c.Quantidade, c.valorProduto, int.Parse(c.Quantidade) * double.Parse(c.valorProduto));
-                  Console.WriteLine("----------------------------------------------------------------|");
-                  totalCompras += int.Parse(c.Quantidade) * double.Parse(c.valorProduto); //SOMAR VALOR 
-                  h += 1;
-                }
-
-                Console.WriteLine("########################## TOTAL ##############################\n");
-                Console.WriteLine("TOTAL : R$ {0} \nTIPO PAGAMENTO : {1}", totalCompras, "DINHEIRO");
-                Console.WriteLine("\n#############################################################\n");
-
-              } else {
-
-                Console.WriteLine("Saldo Indisponível!...A compra está sendo cancelada!\n");
-                loj.setEstornoQuantidade(listaParametro); // ESTORNAR QUANTIDADE DO PRODUTO
-
-              }
-
-              //PAGAMENTO CARTÃO DE CRÉDITO
-            } else if (formPag == 2) {
-
-              saldoContaBanco = saldoC.CartaoCredito(totalCompra); //RETORNO BOLEANO
-
-              if (saldoContaBanco == true) {
-
-                Console.WriteLine("Pagamento efetuado com sucesso!\n");
-                Console.WriteLine("#########################CUPOM FISCAL#########################\n");
-                cadCliente = Menu.cliente.retornoDadosCliente(ResultCPF); //VERIFICA SE O CLIENTE EXISTE
-                Console.WriteLine("CLIENTE : {0}\nCPF : {1}", cadCliente[0], cadCliente[1]);
-                //EXIBIR A LISTA DE PRODUTOS DENTRO DA LISTA
-
-                //EXIBIR A LISTA DE PRODUTOS DENTRO DA LISTA
-                Console.WriteLine("############# CUPOM FISCAL #####################\n");
-                int h = 0; //CONTADOR PARA PERCORRER A LISTA DE PRODUTOS QUE FORAM ADICIONADOS NO CARRINHO
-
-                foreach(Carrinho c in listaCarrinhoCodigo) {
-
-                  Console.WriteLine("----------------------------------------------------------------|");
-                  Console.WriteLine("COD.PRODUTO: {0} - NOME PRODUTO {1} ", c.cod_produto, c.nomeProduto);
-                  Console.WriteLine("QTDE SOL. {0} - VL UN R$ {1} - VL TOTAL R$ {2}", c.Quantidade, c.valorProduto, int.Parse(c.Quantidade) * double.Parse(c.valorProduto));
-                  Console.WriteLine("----------------------------------------------------------------|");
-                  totalCompras += int.Parse(c.Quantidade) * double.Parse(c.valorProduto); //SOMAR VALOR TOTAL DA COMPRA
-                  h += 1;
-                }
-                Console.WriteLine("############# TOTAL #####################\n");
-                Console.WriteLine("TOTAL : R$ {0} \nTIPO PAGAMENTO : {1}", totalCompras, "CARTÃO DE CRÉDITO");
-                Console.WriteLine("\n#############################################################\n");
-
-              } else {
-
-                Console.WriteLine("Saldo Indisponível!...A compra está sendo cancelada\n");
-
-                loj.setEstornoQuantidade(listaParametro); // ESTORNAR QUANTIDADE DO PRODUTO
-
-              }
-
-            } else {
-
-              Console.WriteLine("Opção inválida");
-              Console.WriteLine("A compra está sendo cancelada");
-              loj.setEstornoQuantidade(listaParametro); // ESTORNAR QUANTIDADE DO PRODUTO
-
-            }
-
-          } else {
-
-            Console.WriteLine("CLIENTE NÃO CADASTRADO!...COMPRA CANCELADA");
-            break;
-
-          }
-
-        } else {
-          Console.WriteLine("CPF INVÁLIDO!...COMPRA CANCELADA");
-          break;
-
-        }
+      //RETORNAR RETORNAR INFORMAÇÃO DA COMPRA
+			 funcaoCompra.funCarrinho(listaCarrinhoCodigo,listaParametro);
 
         //CANCELAR ITEM DA COMPRA
-      } else if (opcaoSeguirCom == 1) {
+      } else if (opcaoSeguirCom == 1) { /////////////
 
-        Console.WriteLine("DIGITE QUANTOS PRODUTOS DESEJA CANCELAR/EDITAR");
-        int qtdeCancelProd = int.Parse(Console.ReadLine());
-
-        for (int n = 0; n < qtdeCancelProd; n++) {
-					 Console.WriteLine("CONT FOR : {0}\n",n);
-
-					 Console.WriteLine("DIGITE O CÓDIGO DO PRODUTO QUE DESEJA CANCELAR/EDITAR");
-          string codCancProd = Console.ReadLine();
-         
-          for (int i = 0; i < listaCarrinhoCodigo.Count; i++) {            
-
-            if (listaCarrinhoCodigo[i].cod_produto == codCancProd) {
-
-              Console.WriteLine("0-EDITAR\n1-CANCELAR");
-              int EditOpt = int.Parse(Console.ReadLine());
-
-              if (EditOpt == 0) {
-
-                Console.WriteLine("DIGITE A QUANTIDADE A SER EDITADA");
-                string qtdeEditProd = Console.ReadLine();
-
-								  for (int q = 0; q < listaCarrinhoCodigo.Count; q++) {
-
-                  if (listaCarrinhoCodigo[q].cod_produto == codCancProd) {
-
-                   listaCarrinhoCodigo[q].Quantidade = qtdeEditProd;
-
-                  }
-
-                }
-								
-
-              } else if (EditOpt == 1) {
-
-                Console.WriteLine("CANCELANDO PRODUTO!!");
-                for (int w = 0; w < listaCarrinhoCodigo.Count; w++) {
-
-                  if (listaCarrinhoCodigo[w].cod_produto == codCancProd) {
-
-                    Console.WriteLine("COD PRODUTO : {0}\n PRODUTO : {1} -------  CANCELANDO!!", listaCarrinhoCodigo[w].cod_produto, listaCarrinhoCodigo[w].nomeProduto);
-                    listaCarrinhoCodigo.RemoveAt(w);
-
-                  }
-
-                }
-
-              } else {
-                Console.WriteLine("OPÇÃO INVÁLIDA");
-              }
-
-            }
-
-          } //FOR PERCORRER LISTA
-
-        } // FOR PERCORRE QUANTIDADE DE PRODUTOS A SEREM EXCLUIDOS/EDITADOS
-
-        //SE NÃO EXISTE PRODUTO NO CARRINHO... VAI SOLICITAR UMA NOVA COMPRA
-        if (listaCarrinhoCodigo.Count <= 0) {
-          Console.WriteLine("\nSEM PRODUTOS NA LISTA.... EFETUE UMA NOVA COMPRA!!!\n");
-
-        } else {
-
-          //EXIBIR A LISTA DE PRODUTOS DENTRO DA LISTA
-          Console.WriteLine("\n############# LISTA DE COMPRAS #####################\n");
-          foreach(Carrinho c in listaCarrinhoCodigo) {
-            Console.WriteLine("COD.PRODUTO: {0} - NOME PRODUTO {1} ", c.cod_produto, c.nomeProduto);
-
-            Console.WriteLine("QTDE SOL. {0} - VL UN R$ {1} - VL TOTAL R$ {2}", c.Quantidade, c.valorProduto, int.Parse(c.Quantidade) * double.Parse(c.valorProduto));
-            Console.WriteLine("----------------------------------------------------------------|");
-
-          }
-
-          SaldoConta saldoC = new SaldoConta(); //INSTANCIAR CLASSE
-
-          //############ TRATAMENTO DE CADASTRO DE CLIENTE COM VALIDADAÇÃO DE CPF ####################
-          Console.WriteLine("DIGITE O CPF PARA CONTINUAR COM A COMPRA\n");
-          ValidaCPF valCpf = new ValidaCPF(); //INSTANCIAR VALIDA CPF
-          ResultCPF = Console.ReadLine(); // VARIAVEL QUE VAI RECEBER O CPF DIGITADO PELO USUARIO
-          bool cpfCompra = valCpf.IsCpf(ResultCPF); //RECEBER UM VALOR BOLEANO, TRUE - EXISTE O CPF, FALSE - NÃO EXISTE
-
-          if (cpfCompra == true) {
-
-            bool existeCliente = Menu.cliente.verificaCadastros(ResultCPF); //VERIFICA SE O CLIENTE EXISTE
-
-            if (existeCliente == true) {
-
-              Console.WriteLine("QUAL MÉTODO DE PAGAMENTO ?\n 1 - DINHEIRO \n 2 - CARTÃO DE CRÉDITO");
-              formPag = int.Parse(Console.ReadLine());
-              //PAGAMENTO EM DINHEIRO
-
-              if (formPag == 1) {
-
-                saldoContaBanco = saldoC.Sacar(totalCompra); //RETORNO BOLEANO
-
-                if (saldoContaBanco == true) {
-
-                  Console.WriteLine("Pagamento efetuado com sucesso!\n");
-                  Console.WriteLine("#########################CUPOM FISCAL#########################\n");
-                  cadCliente = Menu.cliente.retornoDadosCliente(ResultCPF); //VERIFICA SE O CLIENTE EXISTE
-                  Console.WriteLine("CLIENTE : {0}\nCPF : {1}", cadCliente[0], cadCliente[1]);
-                  //EXIBIR A LISTA DE PRODUTOS DENTRO DA LISTA
-
-                  int h = 0; //CONTADOR PARA PERCORRER A LISTA DE PRODUTOS QUE FORAM ADICIONADOS NO CARRINHO
-                  foreach(Carrinho c in listaCarrinhoCodigo) {
-
-                    Console.WriteLine("----------------------------------------------------------------|");
-                    Console.WriteLine("COD.PRODUTO: {0} - NOME PRODUTO {1} ", c.cod_produto, c.nomeProduto);
-                    Console.WriteLine("QTDE SOL. {0} - VL UN R$ {1} - VL TOTAL R$ {2}", c.Quantidade, c.valorProduto, int.Parse(c.Quantidade) * double.Parse(c.valorProduto));
-                    Console.WriteLine("----------------------------------------------------------------|");
-                    totalCompras += int.Parse(c.Quantidade) * double.Parse(c.valorProduto); //SOMAR VALOR 
-                    h += 1;
-                  }
-
-                  Console.WriteLine("########################## TOTAL ##############################\n");
-                  Console.WriteLine("TOTAL : R$ {0} \nTIPO PAGAMENTO : {1}", totalCompras, "DINHEIRO");
-                  Console.WriteLine("\n#############################################################\n");
-
-                } else {
-
-                  Console.WriteLine("Saldo Indisponível!...A compra está sendo cancelada!\n");
-                  loj.setEstornoQuantidade(listaParametro); // ESTORNAR QUANTIDADE DO PRODUTO
-
-                }
-
-                //PAGAMENTO CARTÃO DE CRÉDITO
-              } else if (formPag == 2) {
-
-                saldoContaBanco = saldoC.CartaoCredito(totalCompra); //RETORNO BOLEANO
-
-                if (saldoContaBanco == true) {
-
-                  Console.WriteLine("Pagamento efetuado com sucesso!\n");
-                  Console.WriteLine("#########################CUPOM FISCAL#########################\n");
-                  cadCliente = Menu.cliente.retornoDadosCliente(ResultCPF); //VERIFICA SE O CLIENTE EXISTE
-                  Console.WriteLine("CLIENTE : {0}\nCPF : {1}", cadCliente[0], cadCliente[1]);
-                  //EXIBIR A LISTA DE PRODUTOS DENTRO DA LISTA
-
-                  //EXIBIR A LISTA DE PRODUTOS DENTRO DA LISTA
-                  Console.WriteLine("############# CUPOM FISCAL #####################\n");
-                  int h = 0; //CONTADOR PARA PERCORRER A LISTA DE PRODUTOS QUE FORAM ADICIONADOS NO CARRINHO
-
-                  foreach(Carrinho c in listaCarrinhoCodigo) {
-
-                    Console.WriteLine("----------------------------------------------------------------|");
-                    Console.WriteLine("COD.PRODUTO: {0} - NOME PRODUTO {1} ", c.cod_produto, c.nomeProduto);
-                    Console.WriteLine("QTDE SOL. {0} - VL UN R$ {1} - VL TOTAL R$ {2}", c.Quantidade, c.valorProduto, int.Parse(c.Quantidade) * double.Parse(c.valorProduto));
-                    Console.WriteLine("----------------------------------------------------------------|");
-                    totalCompras += int.Parse(c.Quantidade) * double.Parse(c.valorProduto); //SOMAR VALOR TOTAL DA COMPRA
-                    h += 1;
-                  }
-                  Console.WriteLine("############# TOTAL #####################\n");
-                  Console.WriteLine("TOTAL : R$ {0} \nTIPO PAGAMENTO : {1}", totalCompras, "CARTÃO DE CRÉDITO");
-                  Console.WriteLine("\n#############################################################\n");
-
-                } else {
-
-                  Console.WriteLine("Saldo Indisponível!...A compra está sendo cancelada\n");
-
-                  loj.setEstornoQuantidade(listaParametro); // ESTORNAR QUANTIDADE DO PRODUTO
-
-                }
-
-              } else {
-
-                Console.WriteLine("Opção inválida");
-                Console.WriteLine("A compra está sendo cancelada");
-                loj.setEstornoQuantidade(listaParametro); // ESTORNAR QUANTIDADE DO PRODUTO
-
-              }
-
-            } else {
-
-              Console.WriteLine("CLIENTE NÃO CADASTRADO!...COMPRA CANCELADA");
-              break;
-
-            }
-
-          } else {
-            Console.WriteLine("CPF INVÁLIDO!...COMPRA CANCELADA");
-            break;
-
-          }
-
-        }
+			//RETORNAR RETORNAR INFORMAÇÃO DA COMPRA
+			 funcaoCompra.cancelaEditCompras(listaCarrinhoCodigo,listaParametro);
 
       } else if (opcaoSeguirCom == 2) {
         Console.WriteLine("COMPRA CANCELADA!!!");

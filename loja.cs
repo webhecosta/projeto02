@@ -87,8 +87,7 @@ class Loja{
 
     for (int i = 0; i < nomeProduto.Count; i++) {
 
-      // Console.WriteLine("CODIGO PRODUTO : {0} -- NOME {1}",listaCodigo[i],nomeProduto[i]);
-
+ 
       if ((listaCodigo[i]) == int.Parse(cod)) { //VERIFICAR SE EXISTE O CÓDIGO DENTRO DA LISTA DE CÓDIGOS DE PRODUTOS
 
         if ((quantidade[i]) > int.Parse(qtde)) {
